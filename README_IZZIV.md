@@ -4,7 +4,7 @@
 **Period**: 1st Semester, Academic Year 2024/2025  
 **Course**: Analiza medicinskih slik (Analysis of Medical Images)  
 **Faculty**: Fakulteta za elektrotehniko, Univerza v Ljubljani  
-**Mentor**: Dr. Žiga Bizjak, dr. Žiga Špiclin
+**Mentor**: Dr. Žiga Bizjak, Dr. Žiga Špiclin
 
 ---
 
