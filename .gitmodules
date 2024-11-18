@@ -1,0 +1,6 @@
+[submodule "extensions/slicer_extension"]
+	path = extensions/slicer_extension
+	url = https://github.com/uncbiag/SlicerUniGradICON.git
+[submodule "uniGradICON_model_main"]
+	path = uniGradICON_model_main
+	url = https://github.com/uncbiag/uniGradICON.git
