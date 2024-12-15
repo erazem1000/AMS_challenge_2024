@@ -1,0 +1,49 @@
+
+# .DS_Store
+# .git
+# uniGradICON_model_main/
+# *.ipynb 
+# # python
+# __pycache__
+# *.pyc
+# *.pyo
+# *.pyd
+# .Python
+# env
+# pip-log.txt
+# pip-delete-this-directory.txt
+# .tox
+# .coverage
+# .coverage.*
+# .cache
+# nosetests.xml
+# coverage.xml
+# *.cover
+# *.log
+# .git
+# .mypy_cache
+# .pytest_cache
+# .hypothesis
+
+# Excluding everything by default
+**
+
+# Ignore files inside folder/ but keeping the folder
+!input/.gitkeep
+
+!output/.gitkeep
+
+# Ignorin Python virtual environments and caches
+# unigradicon_venv/
+# __pycache__/
+# *.pyc
+# Allowing only specific files
+# images/*
+# extensions/*
+# .vscode/*
+
+!Dockerfile
+!requirements.txt
+!app/
+!scripts/post_process.py
+!entrypoint.sh

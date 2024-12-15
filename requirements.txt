@@ -1,0 +1,8 @@
+unigradicon 
+numpy
+pynrrd
+h5py
+SimpleITK
+matplotlib
+scipy
+pandas

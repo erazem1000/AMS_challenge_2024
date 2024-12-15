@@ -1,6 +1,6 @@
 ~.pptx
 unigradicon_venv/
-.DS_Store
+*.DS_Store
 uniGradICON_model_main/
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
@@ -198,3 +198,5 @@ ipython_config.py
 *.nii.gz
 *.hdf5
 *.trch
+input/Release_06_12_23/
+output/*.json
