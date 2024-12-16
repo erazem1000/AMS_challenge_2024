@@ -5,61 +5,108 @@ echo "Current working directory is: $(pwd)"
 echo "Make sure your input and output paths are relative to this directory!"
 
 # Activate virtual environment
-source /usr/src/app/venv/bin/activate
+source /usr/src/app/venv/bin/activate || {
+    echo "Error: Failed to activate virtual environment." >&2
+    exit 1
+}
 
 echo "Pozdravljen! Prosim podaj poti do slik za poravnavo."
 
 # Prompt for input interactively
-read -p "Enter the path to the fixed image: " FIXED_IMAGE
-read -p "Enter the path to the moving image: " MOVING_IMAGE
+read -p "Enter the path to the fixed image (e.g., input/fixed_image.nii.gz): " FIXED_IMAGE
+read -p "Enter the path to the moving image (e.g., input/moving_image.nii.gz): " MOVING_IMAGE
 read -p "Enter the fixed modality (ct or mri): " FIXED_MODALITY
 read -p "Enter the moving modality (ct or mri): " MOVING_MODALITY
-read -p "Enter the number of iterations: " ITERATIONS
+read -p "Enter the number of iterations (e.g., 100): " ITERATIONS
+read -p "Enter the transformation output name (e.g., output/disp_fixed_moving.hdf5): " TRANSFORM_OUT
+read -p "Enter the warped output name (e.g., output/warped_fixed_moving.nii.gz): " WARPED_OUT
 
-# Confirm and run
-echo "You entered:"
+# Confirm inputs
+echo -e "\nYou entered:"
 echo "  Fixed Image: $FIXED_IMAGE"
 echo "  Fixed Modality: $FIXED_MODALITY"
 echo "  Moving Image: $MOVING_IMAGE"
 echo "  Moving Modality: $MOVING_MODALITY"
 echo "  Number of Iterations: $ITERATIONS"
+echo "  Transformation Output: $TRANSFORM_OUT"
+echo "  Warped Output: $WARPED_OUT"
 
-# Ask for confirmation
-read -p "Proceed with these images? (Y/n) " CONFIRM
-if [[ "$CONFIRM" != "n" && "$CONFIRM" != "N" ]]; then
+read -p "Proceed with these settings? (Y/n) " CONFIRM
+if [[ "$CONFIRM" =~ ^[Nn]$ ]]; then
+    echo "Operation cancelled by user."
+    exit 0
+fi
 
-  echo "Running: unigradicon-register --fixed \"$FIXED_IMAGE\" --moving \"$MOVING_IMAGE\" --fixed_modality \"$FIXED_MODALITY\" --moving_modality \"$MOVING_MODALITY\" --transform_out output/0011_0001_trans.hdf5 --warped_moving_out output/warped_image_Docker.nii.gz --io_iterations \"$ITERATIONS\""
-
-  # Perform the registration
-  if unigradicon-register \
+# Run the registration
+echo "Running registration..."
+if unigradicon-register \
     --fixed "$FIXED_IMAGE" \
     --moving "$MOVING_IMAGE" \
     --fixed_modality "$FIXED_MODALITY" \
     --moving_modality "$MOVING_MODALITY" \
-    --transform_out output/0011_0001_trans.hdf5 \
-    --warped_moving_out output/warped_image_Docker.nii.gz \
+    --transform_out "$TRANSFORM_OUT" \
+    --warped_moving_out "$WARPED_OUT" \
     --io_iterations "$ITERATIONS"; then
-    
-    # Ask if post-processing should be run
-    echo "Registration completed. Do you want to run post-process? (Y/n)"
-    read -r RESPONSE
-  else
+    echo "Registration completed successfully."
+else
     echo "Registration failed. Check resources or input files." >&2
     exit 1
-  fi 
-
-  if [[ "$RESPONSE" =~ ^[Yy]$ ]] || [[ -z "$RESPONSE" ]]; then
-    if [[ -f output/0011_0001_trans.hdf5 ]]; then
-      python scripts/post_process.py \
-        --fixed "$FIXED_IMAGE" \
-        --warped output/warped_image_Docker.nii.gz \
-        --transform_file output/0011_0001_trans.hdf5
-    else
-      echo "Error: Transform file 'output/0011_0001_trans.hdf5' not found. Post-processing cannot proceed." >&2
-      exit 1
-    fi
-  else
-    echo "Post-process skipped."
-  fi
-
 fi
+
+# Post-process prompt
+read -p "Do you want to run post-processing? (Y/n) " RESPONSE
+if [[ "$RESPONSE" =~ ^[Yy]$ ]] || [[ -z "$RESPONSE" ]]; then
+    if [[ -f "$TRANSFORM_OUT" ]]; then
+        python scripts/post_process.py \
+            --fixed "$FIXED_IMAGE" \
+            --warped "$WARPED_OUT" \
+            --transform_file "$TRANSFORM_OUT"
+        echo "Post-processing completed."
+    else
+        echo "Error: Transform file '$TRANSFORM_OUT' not found. Post-processing skipped." >&2
+    fi
+else
+    echo "Post-processing skipped."
+fi
+
+# Data Transformation Prompt
+read -p "Do you want to convert transformation fields from .hdf5 to .nii.gz? (Y/n) " RESPONSE
+if [[ "$RESPONSE" =~ ^[Yy]$ ]] || [[ -z "$RESPONSE" ]]; then
+    python scripts/data_transform.py || {
+        echo "Error: Data transformation failed." >&2
+        exit 1
+    }
+    echo "Data transformation completed."
+else
+    echo "Data transformation skipped."
+fi
+
+echo "All processes completed successfully!"
+exit 0
+
+
+
+
+# # Validation prompt
+# echo -e "\n*.nii.gz files are required for validation. Use scripts/data_transform.py to prepare the datasets."
+# read -p "Proceed with validation? (Y/n) " CONFIRM_VALIDATION
+# if [[ "$CONFIRM_VALIDATION" =~ ^[Yy]$ ]]; then
+#     echo "Starting validation container..."
+#     docker run \
+#         --rm \
+#         -u "$(id -u):$(id -g)" \
+#         -v "$(pwd)/input:/input" \
+#         -v "$(pwd)/output:/output" \
+#         gitlab.lst.fe.uni-lj.si:5050/domenp/deformable-registration \
+#         python evaluation.py -v
+
+#     if [[ $? -eq 0 ]]; then
+#         echo "Validation process completed successfully."
+#     else
+#         echo "Validation process encountered errors." >&2
+#     fi
+# else
+#     echo "Validation skipped."
+# fi
+
+# echo "Script completed successfully."
