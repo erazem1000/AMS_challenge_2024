@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   unigradicon:
-    image: testni-docker-e-3
+    image: poravnava-docker
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,7 +16,7 @@ services:
   validacija:
     image: gitlab.lst.fe.uni-lj.si:5050/domenp/deformable-registration
     volumes:
-      - ./input:/input
+      - ./output/reshaped:/input
       - ./output:/output
     stdin_open: true
     tty: true

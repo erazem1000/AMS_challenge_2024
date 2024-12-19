@@ -15,3 +15,5 @@ except FileNotFoundError:
     print(f"\nError: File not found at '{file_path}'. Please check the path and try again.")
 except Exception as e:
     print(f"\nError: {e}")
+
+nii_img.dataobj
