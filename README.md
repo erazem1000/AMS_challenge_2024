@@ -87,26 +87,6 @@ and then
 python scripts/data_reshape_2.py
 ```
 
-You can as well run seprately each image - the registration and the validation.
-To run the registration image, use the following command:
-```bash
-docker run \
-    --rm \
-    erazem1000/ams_izziv_24_stonic:latest \
-    .
-```
-To run the validation image, use the following command:
-
-```bash
-docker run \
-    --rm \
-    -u $UID:$UID \
-    -v ./output/reshaped_validation:/input \
-    -v ./output:/output/ \
-    gitlab.lst.fe.uni-lj.si:5050/domenp/deformable-registration \
-    python evaluation.py -v
-```
-
 ## Train Commands
 There is a possibility to further train the model. In the `./uniGradICON_model_main` subrepository, there is a `/training` dir with `dataset.py` and `train.py` files (and multi versions for the multiGradICON model). Note that these scripts may require adjustments for compatibility with the OncoReg dataset.
 
