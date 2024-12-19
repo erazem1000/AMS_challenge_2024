@@ -115,5 +115,5 @@ An extension for **3D Slicer** is available. For detailed information, refer to 
 
 Another option to visualise registered images is via runing the following command from the root directory:
 ```bash
-python scripts/post_process.py
+python scripts/post_process.py --fixed={fixed image path} --warped={warped image path} --transform_file={.hdf5 transform file path}
 ```
