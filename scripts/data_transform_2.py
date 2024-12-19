@@ -39,6 +39,8 @@ for file_path in root_dir.glob("*.hdf5"):
         # Print the size of the created displacement field
         print(f"Displacement field size: {displacement_field.GetSize()}")
         print(f"Number of components per pixel: {displacement_field.GetNumberOfComponentsPerPixel()}")
+        array_x = sitk.GetArrayFromImage(displacement_field)
+        print(f"Displacement field array shape: {array_x.shape}")
 
         # Validate displacement field
         if displacement_field.GetSize() != tuple(size):
@@ -49,7 +51,7 @@ for file_path in root_dir.glob("*.hdf5"):
 
         # Save the displacement field as a NIfTI image
         output_file = output_dir / f"{file_path.stem}.nii.gz"
-        sitk.WriteImage(displacement_field, str(output_file))
+        sitk.WriteImage(displacement_field, str(output_file), useCompression=True)
         print(f"Saved displacement field: {output_file}")
 
     except FileNotFoundError:

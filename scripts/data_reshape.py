@@ -5,7 +5,7 @@ import numpy as np
 # Prompt the user for the file path
 # file_path = input("Enter the path to your .nii.gz file: ").strip()
 # file_path= "input/disp_0012_0001_0012_0000.nii.gz"
-root_path = "input"
+root_path = "output/reshaped"
 
 root_dir = Path(root_path)
 

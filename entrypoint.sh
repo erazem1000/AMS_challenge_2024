@@ -72,15 +72,26 @@ fi
 # Data Transformation Prompt
 read -p "Do you want to convert transformation fields from .hdf5 to .nii.gz? (Y/n) " RESPONSE
 if [[ "$RESPONSE" =~ ^[Yy]$ ]] || [[ -z "$RESPONSE" ]]; then
-    python scripts/data_transform.py || {
+    python scripts/data_transform_2.py || {
         echo "Error: Data transformation failed." >&2
         exit 1
     }
-    echo "Data transformation completed."
+    echo "Data transformation to .nii.gz completed."
 else
-    echo "Data transformation skipped."
+    echo "Data transformation to .nii.gz skipped."
 fi
 
+# Data reshaping prompt
+read -p "Do you want to reshape the transformation for validation method? (Y/n) " RESPONSE
+if [[ "$RESPONSE" =~ ^[Yy]$ ]] || [[ -z "$RESPONSE" ]]; then
+    python scripts/data_reshape_2.py || {
+        echo "Error: Data reshape failed." >&2
+        exit 1
+    }
+    echo "Data reshape completed."
+else
+    echo "Data reshape skipped."
+fi
 echo "All processes completed successfully!"
 exit 0
 

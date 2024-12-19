@@ -46,7 +46,8 @@
 !requirements.txt
 !app/
 !scripts/post_process.py
-!scripts/data_transform.py
+!scripts/data_transform_2.py
+!scripts/data_reshape_2.py
 !entrypoint.sh
 !Makefile
 !compose.yaml

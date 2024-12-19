@@ -200,3 +200,6 @@ ipython_config.py
 *.trch
 input/Release_06_12_23/
 output/*.json
+scripts/data_reshape.py
+scripts/test.py
+scripts/post_process_torch.py

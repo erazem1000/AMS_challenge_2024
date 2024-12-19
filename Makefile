@@ -1,6 +1,6 @@
 # Define Docker services
-UNIGRADICON_SERVICE = unigradicon
-VALIDACIJA_SERVICE = validacija
+REGISTRATION_SERVICE = registration
+VALIDATION_SERVICE = validation
 
 # Default action
 all: help
@@ -10,11 +10,11 @@ up:
 	docker-compose up -d
 
 # Run individual services using docker-compose
-run-unigradicon:
-	docker-compose run --rm $(UNIGRADICON_SERVICE)
+run-registration:
+	docker-compose run --rm $(REGISTRATION_SERVICE)
 
-run-validacija:
-	docker-compose run --rm $(VALIDACIJA_SERVICE)
+run-validation:
+	docker-compose run --rm $(VALIDATION_SERVICE)
 
 # Stop services and remove containers/volumes
 down:
@@ -22,10 +22,10 @@ down:
 
 # Helper menu
 help:
-	@echo "Makefile for Docker Containers"
+	@echo "Makefile for AMS Challenge uni/multi-GradICON docker Containers"
 	@echo "Usage: make <target>"
 	@echo "Available targets:"
-	@echo "  up                 - Start all services"
-	@echo "  run-unigradicon    - Run the Unigradicon service"
-	@echo "  run-validacija     - Run the Validacija service"
+	@echo "  up                 - Start all docker-compose services"
+	@echo "  run-registration   - Run the registration servise"
+	@echo "  run-validation     - Run the validation service"
 	@echo "  down               - Stop and clean up"

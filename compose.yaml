@@ -1,11 +1,11 @@
 version: "3.8"
 
 services:
-  unigradicon:
-    image: poravnava-docker
-    build:
-      context: .
-      dockerfile: Dockerfile
+  registration:
+    image: erazem1000/ams_izziv_24_stonic:latest
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
     volumes:
       - ./input:/usr/src/app/input
       - ./output:/usr/src/app/output
@@ -13,20 +13,12 @@ services:
     tty: true
     entrypoint: ./entrypoint.sh
 
-  validacija:
+  validation:
     image: gitlab.lst.fe.uni-lj.si:5050/domenp/deformable-registration
     volumes:
-      - ./output/reshaped:/input
+      - ./output/reshaped_validation:/input
       - ./output:/output
     stdin_open: true
     tty: true
     command: python evaluation.py -v
     user: "${UID}:${UID}"
-  # validacija:
-  #   image: gitlab.lst.fe.uni-lj.si:5050/domenp/deformable-registration
-  #   volumes:
-  #     - ./input:/usr/src/app/input
-  #     - ./output:/usr/src/app/output
-  #   stdin_open: true
-  #   tty: true
-  #   command: python evaluation.py -v
