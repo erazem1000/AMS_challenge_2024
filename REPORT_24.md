@@ -20,8 +20,3 @@ Obe sliki sta posneti z magnetno resonanco, torej poravnavamo enaki modaliteti.
 Za poravnavo sem uporabil v naprej natrenirani model uniGRADICON.       
 Rezultat poravnave je prikazan na spodnji sliki:
 ![Rezultat](/images/rep_1_im_2.png)
-
-### Načrt za nadaljnje delo
-
-- Poravnava vzorcev različnih modalitet in s tem preizkusiti metodološko razširitev uniGRADICONA na več modalitet.
-- Eksperimentiranje z drugimi merami podobnosti.
