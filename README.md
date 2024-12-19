@@ -117,3 +117,4 @@ Another option to visualise registered images is via runing the following comman
 ```bash
 python scripts/post_process.py --fixed={fixed image path} --warped={warped image path} --transform_file={.hdf5 transform file path}
 ```
+Registration results will be saved to `results_{date}_{time}.json`.
