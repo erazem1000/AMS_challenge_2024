@@ -93,8 +93,9 @@ There is a possibility to further train the model. In the `./uniGradICON_model_m
 ## Extensions
 An extension for **3D Slicer** is available. For detailed information, refer to the `./extensions/slicer_extension/README.md` file in the repository.
 
-Another option to visualise registered images is via runing the following command from the root directory:
+Another option to visualise (see below) registered images is via runing the following command from the root directory:
 ```bash
 python scripts/post_process.py --fixed={fixed image path} --warped={warped image path} --transform_file={.hdf5 transform file path}
 ```
 Registration results will be saved to `results_{date}_{time}.json`.
+![result from post_process.py](/images/Figure_post_process.png)
