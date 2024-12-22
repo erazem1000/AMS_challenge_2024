@@ -1,0 +1,18 @@
+Command:
+uniGradICON_model_main/training/train.py
+System:
+Erazem1000
+Python:
+/Users/erazemstonic/Documents/magisterij/fe/predmeti_fe/final_chapter_fe/Analiza_Medicinskih_Slik/AMS_challenge_2024/unigradicon_venv/bin/python
+Git Hash:
+b068cf9
+git@github.com:erazem1000/AMS_challenge_2024.git/tree/b068cf9
+Uncommitted changes:
+diff --git a/uniGradICON_model_main b/uniGradICON_model_main
+--- a/uniGradICON_model_main
++++ b/uniGradICON_model_main
+@@ -1 +1 @@
+-Subproject commit 425c6d3b8ef9316ec689850e620594d9636a031e
++Subproject commit 425c6d3b8ef9316ec689850e620594d9636a031e-dirty
+Current working dir:
+/Users/erazemstonic/Documents/magisterij/fe/predmeti_fe/final_chapter_fe/Analiza_Medicinskih_Slik/AMS_challenge_2024

@@ -208,5 +208,6 @@ scripts/*
 !scripts/data_inspection_2.py
 !scripts/data_inspection.py
 !scripts/sitk_image_readout.py
-
-
+!scripts/dataset.py 
+!scripts/train.py
+reshaped
